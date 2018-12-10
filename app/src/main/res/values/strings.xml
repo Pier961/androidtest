@@ -28,8 +28,8 @@
     <string name="registrati">Register</string>
     <string name="email">E-mail</string>
     <string name="password">•••••••</string>
-
-
+    <string name="login_success">Login ok</string>
+    <string name="password_success">Pasword ok</string>
 
 
 </resources>
