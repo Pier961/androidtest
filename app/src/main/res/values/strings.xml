@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="uno">1</string>
+    <string name="due">2</string>
+    <string name="tre">3</string>
+    <string name="quattro">4</string>
+    <string name="cinque">5</string>
+    <string name="sei">6</string>
+    <string name="sette">7</string>
+    <string name="otto">8</string>
+    <string name="nove">9</string>
+    <string name="piu">+</string>
+    <string name="meno">-</string>
+    <string name="uguale">=</string>
+    <string name="diviso">/</string>
+    <string name="moltiplica">*</string>
+    <string name="zero">0</string>
+    <string name="azzera">C</string>
+
+    <string name="login">Login</string>
+    <string name="registrati">Register</string>
+    <string name="email">E-mail</string>
+    <string name="password">•••••••</string>
+
+
+
+
+</resources>
