@@ -1,71 +1,124 @@
 package com.example.angela.myapplication;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.util.Patterns;
+import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener{
+public class MainActivity extends AppCompatActivity implements OnClickListener {
 
-    private static final Object TAG = ;
+    private static final String TAG = "";
     EditText emailET;
     EditText passwordET;
-
-    Button loginBtn;
+    EditText phoneET;
     Button registerBtn;
-
+    boolean passwordValid , emailValid , phoneValid ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        emailET=findViewById(R.id.email_et);
-        passwordET=findViewById(R.id.password_et);
-        loginBtn=findViewById(R.id.login_btn);
-        registerBtn=findViewById(R.id.register_btn);
+        emailET = findViewById(R.id.email_et);
+        passwordET = findViewById(R.id.password_et);
+        registerBtn = findViewById(R.id.register_btn);
+        phoneET = findViewById(R.id.phone_et);
 
-        loginBtn.setOnClickListener(new OnClickListener(){
+
+
+        registerBtn.setOnClickListener(this);
+        Log.i("MainActivity", "activity created");
+
+        emailET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view){
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-        });
 
-        loginBtn.setOnClickListener(this);
-        registerBtn.setOnClickListener(this);
-        Log.i("MainActivity","activity created");
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                emailValid = isValidEmail();
+                enableButton();
+            }});
+
+        passwordET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                passwordValid = isValidPassword();
+                enableButton();
+            }});
+
+        phoneET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                phoneValid = isValidPhone();
+                enableButton();
+            }});
+
+
 
     }
 
-    private boolean isValidEmail(){
-        //TODO how to check if a mail is valid
-        return false;
+    public void enableButton(){
+        registerBtn.setEnabled(emailValid && passwordValid && phoneValid);
     }
 
-    private boolean isValidPassword(){
-        //TODO how to check if a password is valid
-        return false;
+
+
+    private void ShowErrorMessage() {
+        Toast.makeText(getApplicationContext(), "Registrazione fallita", Toast.LENGTH_LONG).show();
+
     }
 
-    private void ShowErrorMessage(){
-        log.e(TAG,getString(R.string.login_success));
+    private void ShowSuccessMessage() {
+        Toast.makeText(getApplicationContext(), "Registrazione completata",Toast.LENGTH_LONG).show();
     }
 
-    private void ShowSuccessMessage(){
-        log.i(TAG,getString(R.string.password_success));
+
+    private boolean isValidEmail() {
+        String email = emailET.getText().toString();
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
+
+    private boolean isValidPassword() {
+        return (passwordET.getText().toString().length() >= 6);
+    }
+    private boolean isValidPhone() {
+        String phone = phoneET.getText().toString();
+        return Patterns.PHONE.matcher(phone).matches();
+    }
+
+
 
 
     @Override
@@ -90,12 +143,25 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         super.onDestroy();
     }
 
+
+
+
     @Override
     public void onClick(View view) {
-        if(view.getId()==R.id.login_btn){
-            //TODO perfom login
-        }else if(view.getId()==R.id.register_btn){
-            //TODO perform register
+        if(view.getId()==R.id.register_btn){
+
+            if (isValidEmail() & isValidPassword() & isValidPhone()) {
+                ShowSuccessMessage();
+            }else{
+                ShowErrorMessage();
+            }
+
         }
     }
+
+
 }
+
+
+
+

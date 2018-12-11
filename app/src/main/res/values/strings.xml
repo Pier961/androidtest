@@ -30,6 +30,7 @@
     <string name="password">•••••••</string>
     <string name="login_success">Login ok</string>
     <string name="password_success">Pasword ok</string>
+    <string name="phone">+39</string>
 
 
 </resources>
