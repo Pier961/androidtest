@@ -22,7 +22,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" android:label="MainActivity"></activity>
-        <activity android:name=".WelcomeActivity" android:label="Welcome"></activity>
+        <activity android:name=".WelcomeActivity" android:label="Welcome">
+            <intent-filter>
+                <action android:name="android.intent.action.SENDTO"/>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="mail" />
+                <data android:scheme="mailto" />
+
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
