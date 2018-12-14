@@ -31,6 +31,8 @@ public class WelcomeActivity  extends AppCompatActivity implements View.OnClickL
         welcomeET.setText(openedEmail);
     }
 
+
+
     }
     public void onClick(View view){
         Intent i = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(

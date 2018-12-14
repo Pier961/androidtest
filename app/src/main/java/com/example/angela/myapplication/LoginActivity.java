@@ -1,6 +1,7 @@
 package com.example.angela.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,11 +9,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 @SuppressWarnings("deprecation")
 public class LoginActivity extends AppCompatActivity implements OnClickListener,OnCheckedChangeListener {
@@ -25,8 +26,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
     Button registerlogBtn;
     Switch changecolorSwc;
     LinearLayout sfondoBg;
-
-
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor spEditor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,15 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
         registerlogBtn.setOnClickListener(this);
         changecolorSwc.setOnCheckedChangeListener(this);
         Log.i("MainActivity", "activity created");
+
+        sharedPreferences = getPreferences(MODE_PRIVATE );
+        spEditor = sharedPreferences.edit();
+
+        sfondoBg.setBackgroundColor(getResources().getColor(sharedPreferences.getInt("sfondobg", 000000)));
+        changecolorSwc.setChecked(sharedPreferences.getBoolean("switch", false));
+
+
+
 
     }
 
@@ -117,24 +127,22 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
             if (isValidEmail() & isValidPassword()) {
                 ShowSuccessMessage();
                 changePage2();
-
             }
             else
-                {
-                ShowErrorMessage();
-                }
-
+                { ShowErrorMessage(); }
         }
 
-
-        }
+    }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(isChecked){
             sfondoBg.setBackgroundColor(getResources().getColor(R.color.bg));
+            spEditor.putInt("sfondobg",R.color.bg).putBoolean("switch", true).commit();
+
         }else{
             sfondoBg.setBackgroundColor(getResources().getColor(R.color.bgtext));
+            spEditor.putInt("sfondobg",R.color.bgtext).putBoolean("switch", false).commit();
         }
     }
 }
