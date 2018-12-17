@@ -2,9 +2,9 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:orientation="vertical">
 
@@ -17,19 +17,33 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/rv"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/welcome_et" >
 
         </android.support.v7.widget.RecyclerView>
-        <include layout="@layout/row"></include>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Total"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/zero"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="bottom"
             android:text="@string/buy"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            />
+        </LinearLayout>
 
-
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </android.support.constraint.ConstraintLayout>
