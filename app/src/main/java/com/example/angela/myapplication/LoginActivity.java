@@ -127,12 +127,17 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
             if (isValidEmail() & isValidPassword()) {
                 ShowSuccessMessage();
                 changePage2();
+
             }
             else
-                { ShowErrorMessage(); }
+                {
+                ShowErrorMessage();
+                }
+
         }
 
-    }
+
+        }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
