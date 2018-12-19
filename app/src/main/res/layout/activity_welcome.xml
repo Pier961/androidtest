@@ -4,21 +4,32 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="right"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/welcome_et"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:clickable="true"
             android:onClick="onClick" />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="false"
+            android:id="@+id/loading"/>
+
         <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
             android:id="@+id/rv"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/welcome_et" >
+            android:layout_below="@+id/welcome_et"
+            android:layout_marginTop="-1dp">
+            >
+
 
         </android.support.v7.widget.RecyclerView>
 
@@ -38,6 +49,12 @@
                 android:text="@string/zerototale"
                 android:id="@+id/zerototale"
                 />
+            <ProgressBar
+                android:id="@+id/pb"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progress="0" />
 
 
 

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -35,6 +36,7 @@ public class WelcomeActivity  extends AppCompatActivity  implements View.OnClick
     FoodlistAdapter adapter;
     LinearLayoutManager layoutManager;
     Button buy;
+    ProgressBar progressBar,loading;
 
 
     @Override
@@ -48,6 +50,12 @@ public class WelcomeActivity  extends AppCompatActivity  implements View.OnClick
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         buy=findViewById(R.id.buy);
+        progressBar = findViewById(R.id.pb);
+        loading=findViewById(R.id.loading);
+        progressBar.setMax(5);
+        progressBar.setProgress(0);
+        loading.setMax(5);
+        loading.setProgress(0);
         getProducts();
 
 
@@ -85,6 +93,7 @@ public class WelcomeActivity  extends AppCompatActivity  implements View.OnClick
 
         total += price;
         display.setText("€" + toString().valueOf(total));
+        progressBar.setProgress(total);
         enableButtonBuy();
 
     }
@@ -94,6 +103,7 @@ public class WelcomeActivity  extends AppCompatActivity  implements View.OnClick
 
         total -= price;
         display.setText("€" + toString().valueOf(total));
+        progressBar.setProgress(total);
         enableButtonBuy();
 
     }
@@ -129,22 +139,29 @@ public class WelcomeActivity  extends AppCompatActivity  implements View.OnClick
                                 Elements food = new Elements(jsonArray.getJSONObject(i));
                                 foodArrayList.add(food);
 
+
                             }
                             adapter = new FoodlistAdapter(WelcomeActivity.this);
                             adapter.setOnQuantityChange(WelcomeActivity.this);
                             adapter.setData(foodArrayList);
                             recyclerView.setAdapter(adapter);
+                            if(foodArrayList.get(0)!=null ){
+                                loading.setVisibility(View.INVISIBLE);
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
+
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error", error.getMessage());
             }
-        });
+        }
+        );
 
         queue.add(stringRequest);
     }
