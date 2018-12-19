@@ -3,7 +3,6 @@ package com.example.angela.myapplication;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,14 +14,37 @@ import java.util.ArrayList;
 
 public class FoodlistAdapter extends RecyclerView.Adapter {
     private LayoutInflater mInfliter;
-    private ArrayList<Elements> data;
+
+    private ArrayList<Elements> data = new ArrayList<>();
+    private OnQuantityChange onQuantityChange;
+    public FoodlistAdapter setOnQuantityChange(OnQuantityChange onQuantityChange) {
+        this.onQuantityChange = onQuantityChange;
+        return this;
+    }
+
+    public void setData(ArrayList<Elements> foodArrayList) {
+        this.data=foodArrayList;
+        notifyDataSetChanged();
+    }
+
+    public interface OnQuantityChange{
+        public void onItemAdded(int price);
+        public void onItemRemoved (int price);
+    }
 
 
-    public FoodlistAdapter(Context c, ArrayList<Elements> data) {
-        this.data = data;
-        mInfliter = LayoutInflater.from(c);
+
+    public FoodlistAdapter(Context context ) {
+        mInfliter=LayoutInflater.from(context);
 
     }
+
+    public FoodlistAdapter(Context context , ArrayList<Elements> data){
+        this.data = data;
+        mInfliter=LayoutInflater.from(context);
+    }
+
+
 
 
     @NonNull
@@ -35,9 +57,9 @@ public class FoodlistAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         FoodViewHolder f = (FoodViewHolder) viewHolder;
-        f.display.setText(data.get(i).quantita);
-        f.prodotto.setText(data.get(i).nomeArticolo);
-        f.prezzo.setText(data.get(i).prezzoUnitario);
+        f.display.setText(String.valueOf(data.get(i).getQuantita()));
+        f.prodotto.setText(data.get(i).getNomeArticolo());
+        f.prezzo.setText(String.valueOf(data.get(i).getPrezzoUnitario()));
 
     }
 
@@ -69,27 +91,29 @@ public class FoodlistAdapter extends RecyclerView.Adapter {
         public void onClick(View v) {
            if(v.getId()==R.id.piu_btn1){
             addValueButton();
+
+
            }else if(v.getId()==R.id.meno_btn1){
                minusValueButton();
            }
         }
 
         public void addValueButton() {
-            int value;
-            value = Integer.parseInt(display.getText().toString());
-            value++;
-            display.setText(String.valueOf(value));
-            Log.i("FoodAdapt", "problema");
+
+           Elements element = data.get(getAdapterPosition());
+            element.increaseQuantita();
+            notifyItemChanged(getAdapterPosition());
+            onQuantityChange.onItemAdded(element.getPrezzoUnitario());
+
         }
 
         public void minusValueButton() {
-            int value;
-            value = Integer.parseInt(display.getText().toString());
-            if(value>0){
-                value--;
+            Elements element = data.get(getAdapterPosition());
+            if(element.getQuantita()>0){
+                element.decreaseQuantita();
+                notifyItemChanged(getAdapterPosition());
+                onQuantityChange.onItemRemoved(element.getPrezzoUnitario());
             }
-            display.setText(String.valueOf(value));
-            Log.i("FoodAdapt", "problema");
         }
     }
 

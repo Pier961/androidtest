@@ -41,6 +41,7 @@
     <string name="prezzotea">2,50 €</string>
     <string name="buy">Buy</string>
     <string name="Total">Total : </string>
+    <string name="zerototale">0</string>
 
 
 </resources>

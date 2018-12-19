@@ -21,26 +21,34 @@
             android:layout_below="@+id/welcome_et" >
 
         </android.support.v7.widget.RecyclerView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_alignParentBottom="true">
+
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Total"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/zero"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:text="@string/buy"
-            android:textAlignment="center"
-            />
+                android:text="@string/zerototale"
+                android:id="@+id/zerototale"
+                />
+
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/buy"
+                android:enabled="false"
+
+                android:text="@string/buy"
+                android:textAlignment="center" />
         </LinearLayout>
 
     </RelativeLayout>
