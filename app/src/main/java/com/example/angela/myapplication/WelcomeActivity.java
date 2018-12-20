@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,7 +22,6 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -129,36 +129,34 @@ public class WelcomeActivity  extends AppCompatActivity  implements View.OnClick
                     public void onResponse(String response) {
                         Log.d("Success", response);
                         try {
-                            JSONObject responseJSON = new JSONObject(response);
-                            JSONArray jsonArray = responseJSON.getJSONArray("foods");
+                            JSONArray jsonArray = new JSONArray(response);
 
                             ArrayList<Elements> foodArrayList = new ArrayList<>();
 
                             for (int i = 0; i < jsonArray.length(); i++) {
 
                                 Elements food = new Elements(jsonArray.getJSONObject(i));
-                                foodArrayList.add(food);
-
-
+                                if(food.getAvaiable()){
+                                    foodArrayList.add(food);
+                                }
                             }
                             adapter = new FoodlistAdapter(WelcomeActivity.this);
                             adapter.setOnQuantityChange(WelcomeActivity.this);
                             adapter.setData(foodArrayList);
                             recyclerView.setAdapter(adapter);
-                            if(foodArrayList.get(0)!=null ){
-                                loading.setVisibility(View.INVISIBLE);
-                            }
+                            loading.setVisibility(View.INVISIBLE);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error", error.getMessage());
+                loading.setVisibility(View.INVISIBLE);
+                Toast.makeText(WelcomeActivity.this, "Errore caricamento dati!", Toast.LENGTH_LONG).show();
+
             }
         }
         );

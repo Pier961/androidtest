@@ -7,8 +7,9 @@ public class Elements {
    private String nomeArticolo;
    private int  prezzoUnitario;
     private int quantita;
+    private boolean avaiable;
 
-    public Elements(String nome , int prezzo , int quantita){
+    public Elements(String nome , int prezzo , int quantita,boolean avaiable){
         this.nomeArticolo=nome;
         this.prezzoUnitario=prezzo;
         this.quantita=quantita;
@@ -18,6 +19,7 @@ public class Elements {
 
         this.nomeArticolo = jsonFood.getString("name");
         this.prezzoUnitario = Integer.parseInt(jsonFood.getString("price"));
+        this.avaiable=jsonFood.getBoolean("available");
 
 
     }
@@ -47,5 +49,13 @@ public class Elements {
     }
     public void decreaseQuantita() {
         this.quantita --;
+    }
+
+    public boolean getAvaiable() {
+        return avaiable;
+    }
+
+    public void setAvaiable(boolean avaiable) {
+        this.avaiable = avaiable;
     }
 }
